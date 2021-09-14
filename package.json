@@ -6,12 +6,17 @@
   "scripts": {
     "lint": "npx eslint .",
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "deploy:prod": "pscp -i id_rsa_private.ppk -r ./movies-explorer-api/* berezdon@178.154.253.253:/home/berezdon/backend"
+    "dev": "nodemon app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Maksim Spirin",
   "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "nodemon": "^2.0.12"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -25,11 +30,5 @@
     "mongoose": "^6.0.5",
     "validator": "^13.6.0",
     "winston": "^3.3.3"
-  },
-  "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.24.2",
-    "nodemon": "^2.0.12"
   }
 }

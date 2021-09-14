@@ -1,32 +1,30 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const {
-  getCards, createCard, deleteCard, likeCard, dislikeCard,
+  getMovies, postMovie, deleteMovie,
 } = require('../controllers/movie');
 
 const regExpLink = /^((http|https):\/\/)(www\.)?[A-Za-z0-9][\w\-.~:/?#[\]@!$&'()*+,;=]*\.[A-Za-z0-9-]{2,8}([\w\-.~:/?#[\]@!$&'()*+,;=]*)?#?/;
 
-router.get('/', getCards);
+router.get('/', getMovies);
 router.post('/', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().pattern(regExpLink),
+    country: Joi.string().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
+    year: Joi.string().required(),
+    description: Joi.string().required(),
+    image: Joi.string().required().pattern(regExpLink),
+    trailer: Joi.string().required().pattern(regExpLink),
+    thumbnail: Joi.string().required().pattern(regExpLink),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
   }),
-}), createCard);
-router.delete('/:cardId', celebrate({
+}), postMovie);
+router.delete('/:movieId', celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().length(24).hex(),
+    movieId: Joi.string().length(24).hex(),
   }),
-}), deleteCard);
-router.put('/:cardId/likes', celebrate({
-  params: Joi.object().keys({
-    cardId: Joi.string().length(24).hex(),
-  }),
-}), likeCard);
-router.delete('/:cardId/likes', celebrate({
-  params: Joi.object().keys({
-    cardId: Joi.string().length(24).hex(),
-  }),
-}), dislikeCard);
+}), deleteMovie);
 
 module.exports = router;
