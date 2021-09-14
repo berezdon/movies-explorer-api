@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "npx eslint .",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "deploy.env": "pscp -i id_rsa_private.ppk newEnv.env berezdon@178.154.253.253:/home/berezdon/backend"
   },
   "keywords": [],
   "author": "Maksim Spirin",
