@@ -1,5 +1,6 @@
 const Movie = require('../models/movies');
 const NotFoundError = require('../errors/notFoundError');
+const AccessIsDeniedError = require('../errors/accessIsDeniedError');
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({})
@@ -52,9 +53,7 @@ module.exports.deleteMovie = (req, res, next) => {
           .then((dataMovie) => res.send(dataMovie).json())
           .catch(next);
       } else {
-        const err = new Error('вы не можете удалить этот фильм, недостаточно прав');
-        err.statusCode = 403;
-        next(err);
+        throw new AccessIsDeniedError('вы не можете удалить этот фильм, недостаточно прав');
       }
     })
     .catch(next);

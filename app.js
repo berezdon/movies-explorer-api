@@ -3,13 +3,12 @@ require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const { celebrate, Joi } = require('celebrate');
 const { errors } = require('celebrate');
-const auth = require('./middlewares/auth');
-const { createUser, login, exit } = require('./controllers/user');
 const NotFoundError = require('./errors/notFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
+
+const { NODE_ENV, URL_MONGODB } = process.env;
 
 const { PORT = 3000 } = process.env;
 
@@ -21,30 +20,14 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
+mongoose.connect(NODE_ENV === 'production' ? URL_MONGODB : 'mongodb://localhost:27017/bitfilmsdb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
 
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
-  }),
-}), login);
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
-    name: Joi.string().required().min(2).max(30),
-  }),
-}), createUser);
-app.get('/signout', exit);
-app.use(auth);
-app.use('/users', require('./routes/user'));
-app.use('/cards', require('./routes/movie'));
+app.use(require('./routes/index'));
 
 app.use((req, res, next) => {
   next(new NotFoundError('Маршрут не найден'));
