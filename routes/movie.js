@@ -31,6 +31,7 @@ router.post('/movies', celebrate({
       }
       return helpers.message('Поле thumbnail заполнено некорректно');
     }),
+    movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
