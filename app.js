@@ -15,6 +15,7 @@ const app = express();
 
 app.use(requestLogger); // подключаем логгер запросов
 app.use(limiter);
+app.use(cors);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,7 +28,6 @@ mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
   useUnifiedTopology: true,
 });
 
-app.use(cors);
 app.use(require('./routes/index'));
 
 app.use(errorLogger);
