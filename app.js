@@ -6,8 +6,6 @@ const bodyParser = require('body-parser');
 const { requestLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 
-const { NODE_ENV, URL_MONGODB } = process.env;
-
 const { PORT = 3000 } = process.env;
 
 const app = express();
