@@ -4,10 +4,10 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
+const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 const { limiter } = require('./routes/rateLimit');
-const { helmet } = require('./routes/helmet');
 
 const { PORT = 3000 } = process.env;
 
