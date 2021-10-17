@@ -14,3 +14,5 @@ node_modules
 .idea
 .vscode
 newEnv.env
+pkey.ppk
+pscp.exe

@@ -20,9 +20,9 @@ module.exports.getUserMe = (req, res, next) => {
 };
 
 module.exports.patchUser = (req, res, next) => {
-  const { name, about } = req.body;
+  const { name, email } = req.body;
 
-  User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
+  User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         throw new NotFoundError('пользователь не найден');

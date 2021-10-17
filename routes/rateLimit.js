@@ -1,6 +1,13 @@
+const router = require('express').Router();
 const rateLimit = require('express-rate-limit');
 
-module.exports.limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // за 15 минут
-  max: 250, // можно совершить максимум 100 запросов с одного IP
-});
+router.use(
+  rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour duration in milliseconds
+    max: 100,
+    message: 'You exceeded 100 requests in 1 hour limit!',
+    headers: true,
+  }),
+);
+
+module.exports = router;

@@ -3,35 +3,22 @@ require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const { errors } = require('celebrate');
-const helmet = require('helmet');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { requestLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
-const { limiter } = require('./routes/rateLimit');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
 
 app.use(requestLogger); // подключаем логгер запросов
-app.use(limiter);
 app.use(cors);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(helmet());
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-});
+mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
 
 app.use(require('./routes/index'));
 
-app.use(errorLogger);
-app.use(errors());
-app.use(require('./routes/centralizedErrorHandler'));
-
-app.listen(PORT);
+app.listen(PORT, () => {
+});

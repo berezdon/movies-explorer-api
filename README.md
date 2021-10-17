@@ -5,4 +5,4 @@
 
 Домен API: api.berezdon.nomoredomains.monster
 
-публичный IP: 178.154.253.253
+публичный IP: 62.84.118.203
