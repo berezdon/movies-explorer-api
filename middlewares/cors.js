@@ -1,6 +1,6 @@
 const allowedCors = [
-  'https://berezdon.nomoredomains.rocks',
-  'http://berezdon.nomoredomains.rocks',
+  'https://berezdon.nomoredomains.monster',
+  'http://berezdon.nomoredomains.monster',
   'https://localhost:3010',
   'http://localhost:3010',
 ];
